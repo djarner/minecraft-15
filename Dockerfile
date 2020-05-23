@@ -24,7 +24,10 @@ RUN apk add --no-cache -U \
     mc \
     wget \
     bash \
-    sudo \HEALTHCHECK --start-period=1m CMD mc-monitor status --host localhost
+    sudo \
+    git
+    
+HEALTHCHECK --start-period=1m CMD mc-monitor status --host localhost
 
 RUN addgroup -g ${GID} minecraft \
   && adduser -Ss /bin/false -u ${UID} -G minecraft -h /home/minecraft minecraft \
@@ -64,5 +67,4 @@ VOLUME ["/data"]
 # Har læst at det kan hjælpe tilføje "--noconsole" til sidst for at undgå 100% CPU usage
 CMD ["bash", "-c", "java -Xms${MINMEMORY} -Xmx${MAXMEMORY} -jar /data/minecraft.jar nogui --noconsole"]
 
-    git
 
